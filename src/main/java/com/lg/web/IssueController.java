@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class IssueController {
@@ -49,4 +51,20 @@ public class IssueController {
     }
     return "issues";
   }
+
+  @GetMapping("/issues/{id}")
+  public String editTutorial(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+    try {
+      LgIssue issue = lgIssueService.findById(id);
+
+      model.addAttribute("issue", issue);
+      model.addAttribute("pageTitle", "Detail (ID: " + id + ")");
+      return "issue_detail";
+    } catch (Exception e) {
+      redirectAttributes.addFlashAttribute("message", e.getMessage());
+
+      return "redirect:/";
+    }
+  }
+  
 }

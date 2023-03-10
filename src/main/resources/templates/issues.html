@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <title>Lg Issue Report</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  <script src="/js/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
 </head>
 <body>
+  <div th:replace="fragments/header :: header"></div>
+
   <div class="container">
     <div sec:authorize="isAuthenticated()">
         <form id="logoutForm" method="POST" th:action="@{/logout}">
@@ -62,6 +64,8 @@
               <th scope="col">Applicant Name</th>
               <th scope="col">IBAN#</th>
               <th scope="col">Status</th>
+              <th scope="col"></th>
+
             </tr>
             </thead>
             <tbody>
@@ -69,23 +73,16 @@
               <th scope="row">[[${issue.id}]]</th>
               <td>[[${issue.lgNumber}]]</td>
               <td>[[${issue.lgType}]]</td>
-              <td>[[${issue.issueDate}]]</td>
+              <td><span th:text="${#dates.format(issue.issueDate,'yyyy-MM-dd')}"></span></td>
               <td>[[${issue.amount}]] [[${issue.currency}]]</td>
               <td>[[${issue.entityName}]]</td>
               <td>[[${issue.appIban}]]</td>
               <td>[[${issue.status}]]</td>
-
-              <!--              <td>-->
-<!--                <a th:if="${issue.published == true}" class="fa-regular fa-square-check"-->
-<!--                   th:href="@{'/issues/' + ${issue.id} + '/published/false'}" title="Disable this issue"></a>-->
-<!--                <a th:if="${issue.published == false}" class="fa-regular fa-square icon-dark"-->
-<!--                   th:href="@{'/issues/' + ${issue.id} + '/published/true'}" title="Enable this issue"></a>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <a th:href="@{'/issues/' + ${issue.id}}" title="Edit this issue"-->
-<!--                   class="fa-regular fa-pen-to-square icon-dark"></a>-->
-<!--                &nbsp;-->
-<!--              </td>-->
+              <td>
+                <a th:href="@{'/issues/' + ${issue.id}}" title="Edit this issue"
+                   class="fa-regular fa-pen-to-square icon-dark"></a>
+                &nbsp;
+              </td>
             </tr>
             </tbody>
           </table>
@@ -125,7 +122,6 @@
 
     </div>
   </div>
-
 
 </body>
 </html>
