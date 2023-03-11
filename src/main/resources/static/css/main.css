@@ -1,13 +1,27 @@
 body {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #eee;
+    background-color: #f1f5f7;
 }
 
 .form-signin {
-    max-width: 330px;
+    min-width: 40vw;
     padding: 15px;
     margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(14,34,56,.07);
+    background-color: #ffffff;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center
+
+}
+.form-group-signin {
+    min-width: 80%;
+    display: flex;
+    margin: 0;
+    gap: 10px;
+    flex-direction: column;
 }
 
 .form-signin .form-signin-heading,
@@ -46,3 +60,4 @@ body {
 .has-error {
     color: red
 }
+
