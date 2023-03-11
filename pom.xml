@@ -60,11 +60,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -129,6 +125,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<defaultGoal>install</defaultGoal>
 	</build>
 
 </project>

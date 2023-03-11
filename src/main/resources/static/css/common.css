@@ -1,0 +1,18 @@
+button {
+    min-height: 37px;
+    min-width: 5rem;
+}
+
+.card {
+ box-shadow: 0 0.1875rem 0.1875rem 0 rgba(14,34,56,.07);
+ border-radius: 10px;
+ border: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.title {
+    margin-top: 10px;
+}
