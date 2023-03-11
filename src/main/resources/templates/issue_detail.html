@@ -38,10 +38,52 @@
     <div class="row d-flex">
       <div class="col-md-6">
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="lgNumber">LG Reference</label>
+          <label class="col-sm-3 col-form-label" for="lgNumber">LG Reference#</label>
           <div class="col-sm-9">
             <input type="text" th:field="*{issue.lgNumber}" readonly class="form-control"
                    id="lgNumber"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="writeType">Writeup Type</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.writeType}" readonly class="form-control"
+                   id="writeType"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="issueDate">Existing LG Validity Date</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.issueDate}" readonly class="form-control"
+                   id="issueDate"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="hijriStart">Hijri Start Date</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.hijriStart}" readonly class="form-control"
+                   id="hijriStart"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="currency">Currency</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.currency}" readonly class="form-control"
+                   id="currency"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="assignCon">Assignment of Contract</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.assignCon}" readonly class="form-control"
+                   id="assignCon"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="appIban">IBAN#</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.appIban}" readonly class="form-control"
+                   id="appIban"/>
           </div>
         </div>
 
@@ -53,73 +95,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="benId">Beneficiary IBAN</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.benId}" readonly class="form-control"
-                   id="benId"/>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="appId">Applicant ID#</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.appId}" readonly class="form-control"
-                   id="appId"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="bankFee">Bank Fee IBAN</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.bankFee}" readonly class="form-control"
-                   id="bankFee"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="appIban">Applicant IBAN</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.appIban}" readonly class="form-control"
-                   id="appIban"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="amount">Existing LG Amount</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.amount}" readonly class="form-control"
-                   id="amount"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="issueDate">Existing LG Validity Date</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.issueDate}" readonly class="form-control"
-                   id="issueDate"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="termsCond">Amendment Term & Conditions</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.termsCond}" readonly class="form-control"
-                   id="termsCond"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="appAddress">Applicant CIF</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.appAddress}" readonly class="form-control"
-                   id="appAddress"/>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-6 ">
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="lgType">Requester Type</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.lgType}" readonly class="form-control"
-                   id="lgType"/>
-          </div>
-        </div>
-        <div class="form-group row">
           <label class="col-sm-3 col-form-label" for="benUid">Beneficiary UID</label>
           <div class="col-sm-9">
             <input type="text" th:field="*{issue.benUid}" readonly class="form-control"
@@ -127,17 +102,68 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="projectName">Applicant Name</label>
+          <label class="col-sm-3 col-form-label" for="autoRenewal">Auto Renewal of LG</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{issue.projectName}" readonly class="form-control"
-                   id="projectName"/>
+            <input type="text" th:field="*{issue.autoRenewal}" readonly class="form-control"
+                   id="autoRenewal"/>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="appCr">Applicant CR#</label>
+          <label class="col-sm-3 col-form-label" for="assignLg">Assignable LG</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{issue.appCr}" readonly class="form-control"
-                   id="appCr"/>
+            <input type="text" th:field="*{issue.assignLg}" readonly class="form-control"
+                   id="assignLg"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="appCif">Applicant CIF</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.appIban}" readonly class="form-control"
+                   id="appCif"/>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 ">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="lgType">LG Type</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.lgType}" readonly class="form-control"
+                   id="lgType"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="startDate">LG Start Date</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.startDate}" readonly class="form-control"
+                   id="startDate"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="endDate">LG End Date</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.startDate}" readonly class="form-control"
+                   id="endDate"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="hijriEnd">Hijri End Date</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.hijriEnd}" readonly class="form-control"
+                   id="hijriEnd"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="amount">Amount</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.amount}" readonly class="form-control"
+                   id="amount"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="projectName">Applicant Name</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.entityName}" readonly class="form-control"
+                   id="projectName"/>
           </div>
         </div>
         <div class="form-group row">
@@ -148,24 +174,31 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="sadadId">SADAD ID</label>
+          <label class="col-sm-3 col-form-label" for="benId">Beneficiary ID#</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{issue.thirdParty}" readonly class="form-control"
-                   id="sadadId"/>
+            <input type="text" th:field="*{issue.benId}" readonly class="form-control"
+                   id="benId"/>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="amendmentAmount">Amendment Amount</label>
+          <label class="col-sm-3 col-form-label" for="openEnded">Open Ended LG</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{issue.amount}" readonly class="form-control"
-                   id="amendmentAmount"/>
+            <input type="text" th:field="*{issue.openEnded}" readonly class="form-control"
+                   id="openEnded"/>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="amendmentValidDate">Amendment LG Validity Date</label>
+          <label class="col-sm-3 col-form-label" for="transLg">Transferable LG</label>
           <div class="col-sm-9">
-            <input type="text" th:field="*{issue.zakatStart}" readonly class="form-control"
-                   id="amendmentValidDate"/>
+            <input type="text" th:field="*{issue.transLg}" readonly class="form-control"
+                   id="transLg"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label" for="termsCond">Amendment Term & Conditions</label>
+          <div class="col-sm-9">
+            <input type="text" th:field="*{issue.termsCond}" readonly class="form-control"
+                   id="termsCond"/>
           </div>
         </div>
         <div class="form-group row">

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Lg Issue Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link th:rel="stylesheet" th:href="@{/css/datepicker/bootstrap-datepicker.css}"/>
+  <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+  <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
+</head>
+<body>
+  <div th:replace="fragments/header :: header"></div>
+
+  <div class="container">
+    <div sec:authorize="isAuthenticated()">
+        <form id="logoutForm" method="POST" th:action="@{/logout}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+
+      <div class="container-fluid" style="max-width: 1200px; margin: 0 auto;">
+        <h2 class="text-center">Report LG Issue</h2>
+
+        <div class="my-3">
+          <form th:action="@{/report}" method="get" id="reportForm" >
+            <div class="form-group row">
+              <div class="col-md-3">
+                <label for="lgReference">LG Reference#</label>
+                <div>
+                  <input id="lgReference" type="text" name="lgReference" th:value="${lgReference}" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="lgType">LG Type</label>
+                <div>
+                  <input id="lgType" type="text" name="lgType" th:value="${lgType}" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="iban">IBAN#</label>
+                <div>
+                  <input id="iban" type="text" name="iban" th:value="${iban}" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="lgType">Applicant CIF#</label>
+                <div>
+                  <input id="applicantCif" type="text" name="applicantCif" th:value="${applicantCif}" class="form-control">
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <p>Click the button for export file.</p>
+          <a th:href="@{/export-to-pdf}">Export to PDF</a>
+          <a th:href="@{/export-to-excel}">Export to Excel</a>
+          <a th:href="@{/export-to-csv}">Export to CSV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{/js/datepicker/bootstrap-datepicker.js}"></script>
+  <script>
+    $('.input-group.date').datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: 'yyyy-mm-dd'
+    });
+
+    function searchIssue(){
+      $("#searchForm").submit(); // Submit the form
+    }
+  </script>
+</body>
+</html>
