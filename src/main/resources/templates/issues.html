@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
           integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <link th:rel="stylesheet" th:href="@{/css/datepicker/bootstrap-datepicker.css}"/>
+  <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+  <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="/js/main.js"></script>
@@ -22,31 +27,71 @@
         </form>
 
 
-      <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
+      <div class="container-fluid" style="max-width: 1200px; margin: 0 auto;">
         <h2 class="text-center">issues</h2>
 
         <div class="my-3">
-          <form th:action="@{/issues}" id="searchForm">
-            <div class="row d-flex">
-              <div class="col-md-6 mt-2">
-                <div class="search">
-                  <i class="fa fa-search"></i>
-                  <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
-                         placeholder="Enter keyword">
-                  <button type="submit" class="btn btn-secondary">Search</button>
+          <form th:action="@{/issues}" method="get" id="searchForm" >
+            <div class="form-group row">
+              <div class="col-md-3">
+                <label for="lgReference">LG Reference#</label>
+                <div>
+                  <input id="lgReference" type="text" name="lgReference" th:value="${lgReference}" class="form-control">
                 </div>
               </div>
-              <div class="col-md-3 input-group mt-2">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="pageSize">Items per page:</label>
+              <div class="col-md-3">
+                <label for="lgType">LG Type</label>
+                <div>
+                  <input id="lgType" type="text" name="lgType" th:value="${lgType}" class="form-control">
                 </div>
-                <select form="searchForm" name="size" th:value="${pageSize}" onchange="changePageSize()" class="size-select"
-                        id="pageSize">
-                  <option th:each="s : ${ {3, 6, 9} }" th:value="${s}" th:text="${s}" th:selected="${s == pageSize}"></option>
-                </select>
               </div>
-              <div class="col-md-1 mt-2">
-                <button id="btnClear" class="btn btn-info">Clear</button>
+              <div class="col-md-3">
+                <label for="iban">IBAN#</label>
+                <div>
+                  <input id="iban" type="text" name="iban" th:value="${iban}" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="lgType">Applicant CIF#</label>
+                <div>
+                  <input id="applicantCif" type="text" name="applicantCif" th:value="${applicantCif}" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3">
+                <label for="issueDate">LG Issue Date</label>
+                <div class="input-group date">
+                  <input type="text" id="issueDate" name="issueDate"  autocomplete="off"  th:value="${#dates.format(issueDate,'yyyy-MM-dd')}" class="form-control" />
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="startDate">Start Date</label>
+                <div class="input-group date">
+                  <input type="text" id="startDate" name="startDate"  autocomplete="off" th:value="${#dates.format(startDate,'yyyy-MM-dd')}"  class="form-control" />
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="endDate">End Date</label>
+                <div class="input-group date">
+                  <input type="text" id="endDate" name="endDate"  autocomplete="off" th:value="${#dates.format(endDate,'yyyy-MM-dd')}"  class="form-control" />
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="filter"></label>
+                <div class="input-group">
+                  <button type="button" id="filter" name="action" onclick="searchIssue()" value="searchIssue" class="btn btn-primary btn-sm">Search</button>
+                </div>
               </div>
             </div>
           </form>
@@ -60,7 +105,7 @@
               <th scope="col">LG Reference#</th>
               <th scope="col">LG Type</th>
               <th scope="col">LG Issue Date</th>
-              <th scope="col">Ammount & Ccy</th>
+              <th scope="col">Amount & Ccy</th>
               <th scope="col">Applicant Name</th>
               <th scope="col">IBAN#</th>
               <th scope="col">Status</th>
@@ -119,9 +164,23 @@
           </ul>
         </nav>
       </div>
-
     </div>
   </div>
 
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{/js/datepicker/bootstrap-datepicker.js}"></script>
+  <script>
+    $('.input-group.date').datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: 'yyyy-mm-dd'
+    });
+
+    function searchIssue(){
+      $("#searchForm").submit(); // Submit the form
+    }
+  </script>
 </body>
 </html>

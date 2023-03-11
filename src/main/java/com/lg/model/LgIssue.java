@@ -126,6 +126,8 @@ public class LgIssue implements Serializable {
   private String resReason;
   @Column(name = "status_time")
   private Date statusTime;
+  @Column(name = "crd_file_name", length = 200)
+  private String crdFileName;
   @Column(name = "crd_file_type", length = 4)
   private String crdFileType;
   @Lob

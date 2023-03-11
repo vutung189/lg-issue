@@ -23,12 +23,12 @@ public class LgIssueRepository {
     StringBuilder hqlCount = new StringBuilder("Select count(l.id) from LgIssue l where 1=1 ");
 
     if (lgReference != null && !lgReference.isEmpty()) {
-      hql.append(" and l.lgReference = :lgReference ");
-      hqlCount.append(" and l.lgReference = :lgReference ");
+      hql.append(" and l.lgNumber = :lgReference ");
+      hqlCount.append(" and l.lgNumber = :lgReference ");
     }
     if (lgType != null && !lgType.isEmpty()) {
-      hql.append(" and l.requesterType = :lgType ");
-      hqlCount.append(" and l.requesterType = :lgType ");
+      hql.append(" and l.lgType = :lgType ");
+      hqlCount.append(" and l.lgType = :lgType ");
 
     }
     if (issueDate != null && startDate == null && endDate == null) {
@@ -47,8 +47,8 @@ public class LgIssueRepository {
 
     }
     if (iban != null && !iban.isEmpty()) {
-      hql.append(" and l.applicantIban = :iban ");
-      hqlCount.append(" and l.applicantIban = :iban ");
+      hql.append(" and l.appIban = :iban ");
+      hqlCount.append(" and l.appIban = :iban ");
 
     }
     if (applicantCif != null && !applicantCif.isEmpty()) {

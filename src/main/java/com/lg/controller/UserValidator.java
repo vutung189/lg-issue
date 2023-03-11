@@ -1,4 +1,4 @@
-package com.lg.web;
+package com.lg.controller;
 
 import com.lg.model.User;
 import com.lg.service.UserService;
