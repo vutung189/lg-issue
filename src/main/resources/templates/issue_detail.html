@@ -1,254 +1,299 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0"
+    />
+    <title>View Issue</title>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
-  <title>View Issue</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link href="/css/common.css" rel="stylesheet" />
+    <link href="/css/main.css" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/main.js"></script>
+  </head>
 
-  <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-        crossorigin="anonymous">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-          crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-          integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-          crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-          crossorigin="anonymous"></script>
-  <script src="/js/main.js"></script>
-</head>
+  <body>
+    <div th:replace="fragments/header :: header"></div>
 
-<body>
-<div th:replace="fragments/header :: header"></div>
-
-<div class="container-fluid">
-  <h2 class="text-center">[[${pageTitle}]]</h2>
-
-  <div class="my-3">
-    <input type="hidden" th:field="*{issue.id}"/>
-
-    <div class="row d-flex">
-      <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="lgNumber">LG Reference#</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.lgNumber}" readonly class="form-control"
-                   id="lgNumber"/>
-          </div>
+    <div class="container">
+      <div class="d-flex align-items-center title">
+        <div>
+          <button type="button" id="btnCancel" class="btn btn-outline-primary">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="writeType">Writeup Type</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.writeType}" readonly class="form-control"
-                   id="writeType"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="issueDate">Existing LG Validity Date</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.issueDate}" readonly class="form-control"
-                   id="issueDate"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="hijriStart">Hijri Start Date</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.hijriStart}" readonly class="form-control"
-                   id="hijriStart"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="currency">Currency</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.currency}" readonly class="form-control"
-                   id="currency"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="assignCon">Assignment of Contract</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.assignCon}" readonly class="form-control"
-                   id="assignCon"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="appIban">IBAN#</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.appIban}" readonly class="form-control"
-                   id="appIban"/>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="benName">Beneficiary Name</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.benName}" readonly class="form-control"
-                   id="benName"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="benUid">Beneficiary UID</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.benUid}" readonly class="form-control"
-                   id="benUid"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="autoRenewal">Auto Renewal of LG</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.autoRenewal}" readonly class="form-control"
-                   id="autoRenewal"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="assignLg">Assignable LG</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.assignLg}" readonly class="form-control"
-                   id="assignLg"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="appCif">Applicant CIF</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.appIban}" readonly class="form-control"
-                   id="appCif"/>
-          </div>
-        </div>
+        <h2 class="mt-2 mx-2">[[${pageTitle}]]</h2>
       </div>
-      <div class="col-md-6 ">
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="lgType">LG Type</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.lgType}" readonly class="form-control"
-                   id="lgType"/>
+      <div class="my-3 card">
+        <div class="card-body">
+          <input type="hidden" th:field="*{issue.id}" />
+
+          <div class="row d-flex">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">LG Reference#</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.lgNumber}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Writeup Type</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.writeType}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"
+                  >Existing LG Validity Date</label
+                >
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.issueDate}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Hijri Start Date</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.hijriStart}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Currency</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.currency}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"
+                  >Assignment of Contract</label
+                >
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.assignCon}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">IBAN#</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.appIban}]]</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Beneficiary Name</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.benName}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Beneficiary UID</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.benUid}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"
+                  >Auto Renewal of LG</label
+                >
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.autoRenewal}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Assignable LG</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.assignLg}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Applicant CIF</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.appIban}]]</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">LG Type</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.lgType}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">LG Start Date</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.startDate}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">LG End Date</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.endDate}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Hijri End Date</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.hijriEnd}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Amount</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.amount}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Applicant Name</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.entityName}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"
+                  >Special Account IBAN</label
+                >
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.specIban}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Beneficiary ID#</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.benId}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Open Ended LG</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.openEnded}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Transferable LG</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.transLg}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label"
+                  >Amendment Term & Conditions</label
+                >
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.termsCond}]]</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Document Link</label>
+                <div class="col-sm-8">
+                  <div class="border-bottom">
+                    <label>[[${issue.crdFileName}]]</label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="startDate">LG Start Date</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.startDate}" readonly class="form-control"
-                   id="startDate"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="endDate">LG End Date</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.startDate}" readonly class="form-control"
-                   id="endDate"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="hijriEnd">Hijri End Date</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.hijriEnd}" readonly class="form-control"
-                   id="hijriEnd"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="amount">Amount</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.amount}" readonly class="form-control"
-                   id="amount"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="projectName">Applicant Name</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.entityName}" readonly class="form-control"
-                   id="projectName"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="specIban">Special Account IBAN</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.specIban}" readonly class="form-control"
-                   id="specIban"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="benId">Beneficiary ID#</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.benId}" readonly class="form-control"
-                   id="benId"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="openEnded">Open Ended LG</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.openEnded}" readonly class="form-control"
-                   id="openEnded"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="transLg">Transferable LG</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.transLg}" readonly class="form-control"
-                   id="transLg"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="termsCond">Amendment Term & Conditions</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.termsCond}" readonly class="form-control"
-                   id="termsCond"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-3 col-form-label" for="documentLink">Document Link</label>
-          <div class="col-sm-9">
-            <input type="text" th:field="*{issue.crdFileName}" readonly class="form-control"
-                   id="documentLink"/>
-          </div>
+          <table class="table table-bordered">
+            <tr class="bg-info">
+              <th>Validation Timestamp</th>
+              <th>Validation Status</th>
+              <th>Reason for Failure</th>
+            </tr>
+            <tr>
+              <td>[[${issue.statusTime}]]</td>
+              <td>[[${issue.status}]]</td>
+              <td>[[${issue.resReason}]]</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="col-sm-3 col-form-label" for="validationTime">Validation TimeTamp</label>
-      <div class="col-sm-9">
-        <input type="text" th:field="*{issue.statusTime}" readonly class="form-control"
-               id="validationTime"/>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-3 col-form-label" for="validationStatus">Validation Status</label>
-      <div class="col-sm-9">
-        <input type="text" th:field="*{issue.status}" readonly class="form-control"
-               id="validationStatus"/>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-3 col-form-label" for="reasonFailure">Reason for Failure</label>
-      <div class="col-sm-9">
-        <input type="text" th:field="*{issue.resReason}" readonly class="form-control"
-               id="reasonFailure"/>
-      </div>
-    </div>
+    <div th:replace="fragments/footer :: footer"></div>
 
-    <div class="text-center">
-      <input type="button" value="Back" id="btnCancel" class="btn btn-secondary btn-sm"/>
-    </div>
-  </div>
-</div>
-
-<div th:replace="fragments/footer :: footer"></div>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#btnCancel").on("click", function () {
-      window.location = "[[@{/issues}]]";
-    });
-  });
-</script>
-
-</body>
-
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#btnCancel").on("click", function () {
+          window.location = "[[@{/issues}]]";
+        });
+      });
+    </script>
+  </body>
 </html>
