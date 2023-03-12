@@ -4,6 +4,8 @@ import com.lg.model.LgIssue;
 import com.lg.repository.LgIssueRepository;
 import com.lg.utils.DateUtil;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,5 +32,18 @@ public class LgIssueServiceImpl implements LgIssueService {
   @Override
   public LgIssue findById(Long id) {
     return lgIssueRepository.findById(id);
+  }
+
+  @Override
+  public List<LgIssue> report(Date receiveFromDate, Date receiveToDate, Date processFromDate, Date processToDate,
+                              String appStatus, String crNumber, String customerId, String customerCif) {
+    if (receiveToDate != null) {
+      receiveToDate = DateUtil.getEndOfDay(receiveToDate);
+    }
+    if (processToDate != null) {
+      processToDate = DateUtil.getEndOfDay(processToDate);
+    }
+    return lgIssueRepository.report(receiveFromDate, receiveToDate, processFromDate, processToDate, appStatus,
+            crNumber, customerId, customerCif);
   }
 }

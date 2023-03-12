@@ -85,7 +85,7 @@
                 >
                 <div class="col-sm-8">
                   <div class="border-bottom">
-                    <label>[[${issue.issueDate}]]</label>
+                    <label th:text="${#dates.format(issue.issueDate,'yyyy-MM-dd')}"></label>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                 <label class="col-sm-4 col-form-label">Hijri Start Date</label>
                 <div class="col-sm-8">
                   <div class="border-bottom">
-                    <label>[[${issue.hijriStart}]]</label>
+                    <label th:text="${#dates.format(issue.hijriStart,'yyyy-MM-dd')}"></label>
                   </div>
                 </div>
               </div>
@@ -180,7 +180,7 @@
                 <label class="col-sm-4 col-form-label">LG Start Date</label>
                 <div class="col-sm-8">
                   <div class="border-bottom">
-                    <label>[[${issue.startDate}]]</label>
+                    <label th:text="${#dates.format(issue.startDate,'yyyy-MM-dd')}"></label>
                   </div>
                 </div>
               </div>
@@ -188,7 +188,7 @@
                 <label class="col-sm-4 col-form-label">LG End Date</label>
                 <div class="col-sm-8">
                   <div class="border-bottom">
-                    <label>[[${issue.endDate}]]</label>
+                    <label th:text="${#dates.format(issue.endDate,'yyyy-MM-dd')}"></label>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,7 @@
                 <label class="col-sm-4 col-form-label">Hijri End Date</label>
                 <div class="col-sm-8">
                   <div class="border-bottom">
-                    <label>[[${issue.hijriEnd}]]</label>
+                    <label th:text="${#dates.format(issue.hijriEnd,'yyyy-MM-dd')}"></label>
                   </div>
                 </div>
               </div>
@@ -277,7 +277,7 @@
               <th>Reason for Failure</th>
             </tr>
             <tr>
-              <td>[[${issue.statusTime}]]</td>
+              <td> <span th:text="${#dates.format(issue.statusTime,'yyyy-MM-dd HH:MM:SS')}"></span></td>
               <td>[[${issue.status}]]</td>
               <td>[[${issue.resReason}]]</td>
             </tr>

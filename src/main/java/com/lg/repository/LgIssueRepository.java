@@ -2,6 +2,7 @@ package com.lg.repository;
 
 import com.lg.model.LgIssue;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -52,8 +53,8 @@ public class LgIssueRepository {
 
     }
     if (applicantCif != null && !applicantCif.isEmpty()) {
-      hql.append(" and l.applicantCif = :applicantCif ");
-      hqlCount.append(" and l.applicantCif = :applicantCif ");
+      hql.append(" and l.appIban = :applicantCif ");
+      hqlCount.append(" and l.appIban = :applicantCif ");
     }
 
     hql.append(" ORDER BY l.issueDate ASC");
@@ -102,5 +103,68 @@ public class LgIssueRepository {
 
   public LgIssue findById(Long id) {
     return entityManager.find(LgIssue.class, id);
+  }
+
+  public List<LgIssue> report(Date receiveFromDate, Date receiveToDate, Date processFromDate, Date processToDate,
+                       String appStatus, String crNumber, String customerId, String customerCif){
+    StringBuilder hql = new StringBuilder("Select l from LgIssue l where 1=1 ");
+
+    if (receiveFromDate != null ) {
+      hql.append(" and l.startDate >= :receiveFromDate ");
+    }
+    if (receiveToDate != null ) {
+      hql.append(" and l.startDate <= :receiveToDate ");
+    }
+    if (processFromDate != null ) {
+      hql.append(" and l.endDate >= :processFromDate ");
+    }
+    if (processToDate != null ) {
+      hql.append(" and l.endDate <= :processToDate ");
+    }
+
+    if (appStatus != null && !appStatus.isEmpty()) {
+      hql.append(" and l.status = :appStatus ");
+    }
+    if (crNumber != null && !crNumber.isEmpty()) {
+      hql.append(" and l.appCr = :crNumber ");
+    }
+    if (customerId != null && !customerId.isEmpty()) {
+      hql.append(" and l.appId = :customerId ");
+    }
+    if (customerCif != null && !customerCif.isEmpty()) {
+      hql.append(" and l.appIban = :customerCif ");
+    }
+
+    hql.append(" ORDER BY l.issueDate ASC");
+
+    TypedQuery<LgIssue> typedQuery = entityManager.createQuery(hql.toString(), LgIssue.class);
+
+    if (receiveFromDate != null ) {
+      typedQuery.setParameter("receiveFromDate", receiveFromDate);
+    }
+    if (receiveToDate != null ) {
+      typedQuery.setParameter("receiveToDate", receiveToDate);
+    }
+    if (processFromDate != null ) {
+      typedQuery.setParameter("processFromDate", processFromDate);
+    }
+    if (processToDate != null ) {
+      typedQuery.setParameter("processToDate", processToDate);
+    }
+
+    if (appStatus != null && !appStatus.isEmpty()) {
+      typedQuery.setParameter("appStatus", appStatus);
+    }
+    if (crNumber != null && !crNumber.isEmpty()) {
+      typedQuery.setParameter("crNumber", crNumber);
+    }
+    if (customerId != null && !customerId.isEmpty()) {
+      typedQuery.setParameter("customerId", customerId);
+    }
+    if (customerCif != null && !customerCif.isEmpty()) {
+      typedQuery.setParameter("customerCif", customerCif);
+    }
+
+    return typedQuery.getResultList();
   }
 }

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
+import com.lg.utils.DateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -33,8 +35,12 @@ public class ExcelGenerator {
     style.setFont(font);
     createCell(row, 0, "ID", style);
     createCell(row, 1, "LG Reference", style);
-    createCell(row, 2, "Amount", style);
-    createCell(row, 3, "LG Type", style);
+    createCell(row, 2, "LG Type", style);
+    createCell(row, 3, "LG Issue Date", style);
+    createCell(row, 4, "Amount & Ccy", style);
+    createCell(row, 5, "Applicant Name", style);
+    createCell(row, 6, "IBAN#", style);
+    createCell(row, 7, "Status", style);
   }
 
   private void createCell(Row row, int columnCount, Object valueOfCell, CellStyle style) {
@@ -66,8 +72,12 @@ public class ExcelGenerator {
       int columnCount = 0;
       createCell(row, columnCount++, lgIssue.getId(), style);
       createCell(row, columnCount++, lgIssue.getLgNumber(), style);
-      createCell(row, columnCount++, lgIssue.getAmount(), style);
       createCell(row, columnCount++, lgIssue.getLgType(), style);
+      createCell(row, columnCount++,  DateUtil.getDateTimeString(lgIssue.getIssueDate()), style);
+      createCell(row, columnCount++, lgIssue.getAmount() + " " + lgIssue.getCurrency(), style);
+      createCell(row, columnCount++, lgIssue.getEntityName(), style);
+      createCell(row, columnCount++, lgIssue.getAppIban(), style);
+      createCell(row, columnCount++, lgIssue.getStatus(), style);
     }
   }
 
