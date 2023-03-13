@@ -108,7 +108,8 @@ public class LgIssue implements Serializable {
   private String amountText;
   @Column(name = "assign_con", length = 5)
   private String assignCon;
-  @Column(name = "terms_cond", columnDefinition="TEXT")
+  @Lob
+  @Column(name = "terms_cond")
   private String termsCond;
   @Column(name = "currency", length = 10)
   private String currency;
