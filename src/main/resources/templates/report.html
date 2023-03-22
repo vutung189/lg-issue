@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link th:rel="stylesheet" th:href="@{/css/datepicker/bootstrap-datepicker.css}"/>
     <link th:rel="stylesheet" th:href="@{css/datepicker/bootstrap-datepicker.standalone.css}"/>
+    <link href="/css/main.css" rel="stylesheet" />
+
 </head>
 <body>
   <div th:replace="fragments/header :: header"></div>
@@ -110,30 +112,85 @@
               <div class="col-md-3">
                 <label for="exportReport" style="visibility: hidden">btn</label>
                 <div class="input-group">
-                  <button type="submit" id="exportReport" name="action" value="exportReport" class="btn btn-primary btn-sm">
+                  <button type="button" id="exportReport" name="action" value="exportReport" onclick="searchIssue()" class="btn btn-primary btn-sm">
                     Export Report
                   </button>
                 </div>
               </div>
             </div>
           </form>
+          <span th:text="${message}"></span>
+
         </div>
       </div>
     </div>
-  </div>
+    <button type="button" id="preview-btn" style="display: none" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      Launch demo modal
+    </button>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+          <iframe id="frame" style="display: none; width: 100%; height: 700px;"></iframe>
+          </div>
+        </div>
+      </div></div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script src="/js/main.js"></script>
   <script th:src="@{/js/datepicker/bootstrap-datepicker.js}"></script>
 
-  <script>
+  <script th:inline="javascript">
     $('.input-group.date').datepicker({
       autoclose: true,
       todayHighlight: true,
       format: 'yyyy-mm-dd'
     });
+
+    function searchIssue() {
+      $.ajax({
+        type: 'GET',
+        url: '/export-report?' +  $('#reportForm').serialize(),
+        xhr: function() {
+          var xhr = new XMLHttpRequest();
+          xhr.responseType= 'blob'
+          return xhr;
+        },
+        success: function(blob, status, xhr) {
+          if(xhr.status == 200) {
+            var filename = "";
+            var disposition = xhr.getResponseHeader('Content-Disposition');
+            if (disposition) {
+              var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+              var matches = filenameRegex.exec(disposition);
+              if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+            }
+            const url = URL.createObjectURL(blob)
+
+            if (blob.type === "application/pdf") {
+              var frame = document.getElementById("frame");
+              var btnPreview = document.getElementById("preview-btn");
+              btnPreview.click();
+              frame.style.display = "block"
+              frame.src = url;
+            } else if (blob.type === "application/octet-stream" || blob.type === "text/csv") {
+              var link = document.createElement("a");
+              document.body.appendChild(link);
+              link.setAttribute("type", "hidden");
+              link.href = url;
+              link.download = filename;
+              link.click();
+              document.body.removeChild(link);
+            }
+          } else {
+            alert("No issues found!")
+          }
+        }
+      });
+    }
 
   </script>
 </body>

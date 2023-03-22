@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -101,7 +102,7 @@ public class IssueController {
     }
 
     @GetMapping({"/export-report"})
-    public ResponseEntity<InputStreamResource> exportReport(
+    public ResponseEntity<?> exportReport(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date receiveFromDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date receiveToDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date processFromDate,
@@ -132,14 +133,9 @@ public class IssueController {
                 exportIntoCsvFile(issues, response);
             }
         } else {
-            response.setContentType("text/plain; charset=utf-8");
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter out = response.getWriter();
-            try {
-                out.println("No issues found!");
-            } finally {
-                out.close();
-            }
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>("No issues found!", responseHeaders, HttpStatus.NO_CONTENT);
         }
         return null;
     }

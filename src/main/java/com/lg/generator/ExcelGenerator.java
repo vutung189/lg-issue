@@ -55,7 +55,7 @@ public class ExcelGenerator {
     } else if (valueOfCell instanceof String) {
       cell.setCellValue((String) valueOfCell);
     } else {
-      cell.setCellValue((Boolean) valueOfCell);
+      cell.setCellValue(String.valueOf(valueOfCell));
     }
     cell.setCellStyle(style);
 

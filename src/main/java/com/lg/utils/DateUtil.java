@@ -18,8 +18,11 @@ public class DateUtil {
     }
 
     public static String getDateTimeString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return dateFormat.format(date);
+        if(date != null) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            return dateFormat.format(date);
+        }
+        return "";
     }
 
     public static String getDateString(Date date) {
