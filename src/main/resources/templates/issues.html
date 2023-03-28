@@ -18,15 +18,7 @@
     <div th:replace="fragments/header :: header"></div>
 
     <div class="container">
-      <div sec:authorize="isAuthenticated()">
-        <form id="logoutForm" method="POST" th:action="@{/logout}">
-          <input
-            type="hidden"
-            name="${_csrf.parameterName}"
-            value="${_csrf.token}"
-          />
-        </form>
-
+      <div>
         <div class="container-fluid" style="max-width: 1200px; margin: 0 auto">
           <h2 class="title">Issues</h2>
           <div class="card my-3">

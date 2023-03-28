@@ -6,7 +6,13 @@ import com.lg.generator.PdfGenerator;
 import com.lg.model.LgIssue;
 import com.lg.service.LgIssueService;
 import com.lg.utils.DateUtil;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.dom4j.DocumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -24,20 +30,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-import java.util.List;
-
 @Controller
 public class IssueController {
+
+    private Logger logger = LoggerFactory.getLogger(IssueController.class);
 
     @Autowired
     private LgIssueService lgIssueService;
 
     @GetMapping("/")
     public String issues(Model model, String error, String logout) {
+        return "redirect:/issues";
+    }
+
+    @GetMapping("/login")
+    public String login() {
         return "redirect:/issues";
     }
 
@@ -51,7 +58,7 @@ public class IssueController {
                          @RequestParam(required = false) String iban,
                          @RequestParam(required = false) String applicantCif,
                          @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int size) {
-
+        logger.info("getAll issues");
         try {
             List<LgIssue> issues;
             Pageable paging = PageRequest.of(page - 1, size);

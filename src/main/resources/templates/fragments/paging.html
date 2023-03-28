@@ -1,5 +1,13 @@
 <a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
-  th:href="@{'/issues?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + 'page=' + ${pageNum} + '&size=' + ${pageSize}}"
+  th:href="@{'/issues?'
+   + ${lgReference!=null && lgReference!=''? 'lgReference=' + lgReference + '&' : ''}
+   + ${lgType!=null && lgType!=''? 'lgType=' + lgType + '&' : ''}
+   + ${iban!=null && iban!=''? 'iban=' + iban + '&' : ''}
+   + ${applicantCif!=null && applicantCif!=''? 'applicantCif=' + applicantCif + '&' : ''}
+   + ${issueDate!=null && issueDate!=''? 'issueDate=' + issueDate + '&' : ''}
+   + ${startDate!=null && startDate!=''? 'startDate=' + startDate + '&' : ''}
+   + ${endDate!=null && endDate!=''? 'endDate=' + endDate + '&' : ''}
+   + 'page=' + ${pageNum} + '&size=' + ${pageSize}}"
   th:title="${tooltip}" rel="tooltip">
   [[${label}]]
 </a>
