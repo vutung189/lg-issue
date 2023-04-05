@@ -17,6 +17,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 import java.util.Collections;
@@ -33,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value( "${cas.server-login-url}" )
     private String casServerLoginUrl;
+
+    @Value( "${cas.client-validate}" )
+    private String casClientValidate;
 
     @Autowired
     public WebSecurityConfig(SingleSignOutFilter singleSignOutFilter, LogoutFilter logoutFilter,
@@ -81,6 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         AuthenticationManager authenticationManager,
         ServiceProperties serviceProperties) throws Exception {
         CasAuthenticationFilter filter = new CasAuthenticationFilter();
+        filter.setFilterProcessesUrl(casClientValidate);
         filter.setAuthenticationManager(authenticationManager);
         filter.setServiceProperties(serviceProperties);
         return filter;

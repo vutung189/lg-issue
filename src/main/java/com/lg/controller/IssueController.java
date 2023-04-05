@@ -43,11 +43,6 @@ public class IssueController {
         return "redirect:/issues";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "redirect:/issues";
-    }
-
     @GetMapping({"/issues"})
     public String getAll(Model model,
                          @RequestParam(required = false) String lgReference,
@@ -99,7 +94,7 @@ public class IssueController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
 
-            return "redirect:/";
+            return "redirect:/issues";
         }
     }
 
