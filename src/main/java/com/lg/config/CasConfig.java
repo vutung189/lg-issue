@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.cas.ServiceProperties;
 import org.springframework.security.cas.authentication.CasAuthenticationProvider;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
@@ -22,6 +20,12 @@ public class CasConfig {
     private String casServerUrlPrefix;
     @Value( "${cas.logout-success-url}" )
     private String casLogoutSuccessUrl;
+
+    private final CasUserDetailService casUserDetailService;
+
+    public CasConfig(CasUserDetailService casUserDetailService) {
+        this.casUserDetailService = casUserDetailService;
+    }
 
     @Bean
     public ServiceProperties serviceProperties() {
@@ -43,9 +47,7 @@ public class CasConfig {
         CasAuthenticationProvider provider = new CasAuthenticationProvider();
         provider.setServiceProperties(serviceProperties);
         provider.setTicketValidator(ticketValidator);
-        provider.setUserDetailsService(
-            s -> new User("sso", "123a@", true, true, true, true,
-                AuthorityUtils.createAuthorityList("ROLE_ADMIN")));
+        provider.setAuthenticationUserDetailsService(casUserDetailService);
         provider.setKey("CAS_PROVIDER_ISSUES");
         return provider;
     }
